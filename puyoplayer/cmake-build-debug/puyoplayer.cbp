@@ -84,7 +84,7 @@
 				</MakeCommands>
 			</Target>
 		</Build>
-		<Unit filename="/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/main.c">
+		<Unit filename="/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/main.c">
 			<Option target="puyoplayer"/>
 		</Unit>
 		<Unit filename="/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/CMakeLists.txt">

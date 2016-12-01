@@ -1,1 +1,1 @@
-/usr/bin/cc   -Wall -Wextra -Werror -std=c11 -g   CMakeFiles/puyoplayer.dir/main.c.o  -o puyoplayer 
+/usr/bin/cc   -Wall -Wextra -Werror -std=c11 -g   CMakeFiles/puyoplayer.dir/src/main.c.o  -o puyoplayer 

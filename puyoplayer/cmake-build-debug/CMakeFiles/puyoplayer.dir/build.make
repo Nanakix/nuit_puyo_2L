@@ -57,38 +57,38 @@ include CMakeFiles/puyoplayer.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/puyoplayer.dir/flags.make
 
-CMakeFiles/puyoplayer.dir/main.c.o: CMakeFiles/puyoplayer.dir/flags.make
-CMakeFiles/puyoplayer.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/puyoplayer.dir/main.c.o"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/puyoplayer.dir/main.c.o   -c /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/main.c
+CMakeFiles/puyoplayer.dir/src/main.c.o: CMakeFiles/puyoplayer.dir/flags.make
+CMakeFiles/puyoplayer.dir/src/main.c.o: ../src/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/puyoplayer.dir/src/main.c.o"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/puyoplayer.dir/src/main.c.o   -c /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/main.c
 
-CMakeFiles/puyoplayer.dir/main.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/puyoplayer.dir/main.c.i"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/main.c > CMakeFiles/puyoplayer.dir/main.c.i
+CMakeFiles/puyoplayer.dir/src/main.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/puyoplayer.dir/src/main.c.i"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/main.c > CMakeFiles/puyoplayer.dir/src/main.c.i
 
-CMakeFiles/puyoplayer.dir/main.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/puyoplayer.dir/main.c.s"
-	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/main.c -o CMakeFiles/puyoplayer.dir/main.c.s
+CMakeFiles/puyoplayer.dir/src/main.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/puyoplayer.dir/src/main.c.s"
+	/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/main.c -o CMakeFiles/puyoplayer.dir/src/main.c.s
 
-CMakeFiles/puyoplayer.dir/main.c.o.requires:
+CMakeFiles/puyoplayer.dir/src/main.c.o.requires:
 
-.PHONY : CMakeFiles/puyoplayer.dir/main.c.o.requires
+.PHONY : CMakeFiles/puyoplayer.dir/src/main.c.o.requires
 
-CMakeFiles/puyoplayer.dir/main.c.o.provides: CMakeFiles/puyoplayer.dir/main.c.o.requires
-	$(MAKE) -f CMakeFiles/puyoplayer.dir/build.make CMakeFiles/puyoplayer.dir/main.c.o.provides.build
-.PHONY : CMakeFiles/puyoplayer.dir/main.c.o.provides
+CMakeFiles/puyoplayer.dir/src/main.c.o.provides: CMakeFiles/puyoplayer.dir/src/main.c.o.requires
+	$(MAKE) -f CMakeFiles/puyoplayer.dir/build.make CMakeFiles/puyoplayer.dir/src/main.c.o.provides.build
+.PHONY : CMakeFiles/puyoplayer.dir/src/main.c.o.provides
 
-CMakeFiles/puyoplayer.dir/main.c.o.provides.build: CMakeFiles/puyoplayer.dir/main.c.o
+CMakeFiles/puyoplayer.dir/src/main.c.o.provides.build: CMakeFiles/puyoplayer.dir/src/main.c.o
 
 
 # Object files for target puyoplayer
 puyoplayer_OBJECTS = \
-"CMakeFiles/puyoplayer.dir/main.c.o"
+"CMakeFiles/puyoplayer.dir/src/main.c.o"
 
 # External object files for target puyoplayer
 puyoplayer_EXTERNAL_OBJECTS =
 
-puyoplayer: CMakeFiles/puyoplayer.dir/main.c.o
+puyoplayer: CMakeFiles/puyoplayer.dir/src/main.c.o
 puyoplayer: CMakeFiles/puyoplayer.dir/build.make
 puyoplayer: CMakeFiles/puyoplayer.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C executable puyoplayer"
@@ -99,7 +99,7 @@ CMakeFiles/puyoplayer.dir/build: puyoplayer
 
 .PHONY : CMakeFiles/puyoplayer.dir/build
 
-CMakeFiles/puyoplayer.dir/requires: CMakeFiles/puyoplayer.dir/main.c.o.requires
+CMakeFiles/puyoplayer.dir/requires: CMakeFiles/puyoplayer.dir/src/main.c.o.requires
 
 .PHONY : CMakeFiles/puyoplayer.dir/requires
 
