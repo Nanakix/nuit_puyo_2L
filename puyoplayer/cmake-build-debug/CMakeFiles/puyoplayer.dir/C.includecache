@@ -1,0 +1,14 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/main.c
+stdio.h
+-
+stdlib.h
+-
+
