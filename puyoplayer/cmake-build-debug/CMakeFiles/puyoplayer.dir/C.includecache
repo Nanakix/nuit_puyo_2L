@@ -6,9 +6,29 @@
 
 #IncludeRegexTransform: 
 
-/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/main.c
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/main.c
+server.h
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.h
+stdbool.h
+-
 stdio.h
 -
 stdlib.h
 -
+stdnoreturn.h
+-
+string.h
+-
+
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.c
+server.h
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.h
 

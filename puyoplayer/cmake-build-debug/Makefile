@@ -150,6 +150,33 @@ src/main.c.s:
 	$(MAKE) -f CMakeFiles/puyoplayer.dir/build.make CMakeFiles/puyoplayer.dir/src/main.c.s
 .PHONY : src/main.c.s
 
+src/server.o: src/server.c.o
+
+.PHONY : src/server.o
+
+# target to build an object file
+src/server.c.o:
+	$(MAKE) -f CMakeFiles/puyoplayer.dir/build.make CMakeFiles/puyoplayer.dir/src/server.c.o
+.PHONY : src/server.c.o
+
+src/server.i: src/server.c.i
+
+.PHONY : src/server.i
+
+# target to preprocess a source file
+src/server.c.i:
+	$(MAKE) -f CMakeFiles/puyoplayer.dir/build.make CMakeFiles/puyoplayer.dir/src/server.c.i
+.PHONY : src/server.c.i
+
+src/server.s: src/server.c.s
+
+.PHONY : src/server.s
+
+# target to generate assembly for a file
+src/server.c.s:
+	$(MAKE) -f CMakeFiles/puyoplayer.dir/build.make CMakeFiles/puyoplayer.dir/src/server.c.s
+.PHONY : src/server.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -162,6 +189,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/server.o"
+	@echo "... src/server.i"
+	@echo "... src/server.s"
 .PHONY : help
 
 

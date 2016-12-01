@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/puyoplayer.dir/src/main.c.o"
+  "CMakeFiles/puyoplayer.dir/src/server.c.o"
   "puyoplayer.pdb"
   "puyoplayer"
 )

@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/main.c" "/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/cmake-build-debug/CMakeFiles/puyoplayer.dir/src/main.c.o"
+  "/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.c" "/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/cmake-build-debug/CMakeFiles/puyoplayer.dir/src/server.c.o"
   )
 set(CMAKE_C_COMPILER_ID "GNU")
 

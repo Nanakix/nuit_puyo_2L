@@ -87,6 +87,12 @@
 		<Unit filename="/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/main.c">
 			<Option target="puyoplayer"/>
 		</Unit>
+		<Unit filename="/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.c">
+			<Option target="puyoplayer"/>
+		</Unit>
+		<Unit filename="/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.h">
+			<Option target="puyoplayer"/>
+		</Unit>
 		<Unit filename="/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

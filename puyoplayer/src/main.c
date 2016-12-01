@@ -1,6 +1,9 @@
 //
 // Created by nillyr on 01/12/16.
 //
+
+#include "server.h"
+
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,11 +12,10 @@
 
 static noreturn void usage() {
   fprintf(stderr,
-  "puyoplayer: Usage:\n\tpuyoplayer solo <player_name>\n"
-  "\tpuyoplayer vs <game_name> <player_name>\n");
+          "puyoplayer: Usage:\n\tpuyoplayer solo <player_name>\n"
+          "\tpuyoplayer vs <game_name> <player_name>\n");
   exit(EXIT_FAILURE);
 }
-
 
 int main(int argc, char **argv) {
   if (argc < 3) {
@@ -21,7 +23,9 @@ int main(int argc, char **argv) {
   }
 
   /* Check arguments */
-  bool solo = !strcmp(argv[1], "solo"), vs = !strcmp(argv[1], "vs");
+  bool solo = !strcmp(argv[1], "solo");
+  bool vs   = !strcmp(argv[1], "vs");
+
   if (!solo && !vs) {
     usage();
   }
@@ -32,6 +36,9 @@ int main(int argc, char **argv) {
     /* Curl -H newvs game */
   }
 
-  printf("Config Project\n");
+  Server_t server;
+  init_server(&server);
+  create_new_game(&server, "test");
+
   return 0;
 }
