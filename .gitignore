@@ -38,6 +38,6 @@ Thumbs.db
 
 # Config Folder #
 #################
-.idea/
-cmake-build-debug/
+puyoplayer/.idea/
+puyoplayer/cmake-build-debug/
 
