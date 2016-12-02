@@ -29,6 +29,8 @@ stdnoreturn.h
 -
 string.h
 -
+unistd.h
+-
 zconf.h
 -
 

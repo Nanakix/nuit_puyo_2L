@@ -42,4 +42,6 @@ typedef struct {
 
 int create_new_game(Server_t *server, char *name);
 
+int send_move(Server_t *server);
+
 #endif //PUYOPLAYER_SERVER_H

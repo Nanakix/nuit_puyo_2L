@@ -7,35 +7,34 @@
 #include <stdlib.h>
 #include <stdnoreturn.h>
 #include <string.h>
+#include <unistd.h>
 #include <zconf.h>
 
-
-static size_t
-WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
-{
-  size_t realsize = size * nmemb;
-  struct MemoryStruct *mem = (struct MemoryStruct *)userp;
-
-  mem->memory = realloc(mem->memory, mem->size + realsize + 1);
-  if(mem->memory == NULL) {
-    /* out of memory! */
-    printf("not enough memory (realloc returned NULL)\n");
-    return 0;
-  }
-
-  memcpy(&(mem->memory[mem->size]), contents, realsize);
-  mem->size += realsize;
-  mem->memory[mem->size] = 0;
-
-  return realsize;
-}
-
-static noreturn void print_error(const char *fmt, ...) {
+static noreturn void exit_on_fail(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);
   vfprintf(stderr, fmt, args);
   va_end(args);
   exit(EXIT_FAILURE);
+}
+
+static size_t
+WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp) {
+  size_t real_size = size * nmemb;
+  struct MemoryStruct *mem = (struct MemoryStruct *)userp;
+
+  mem->memory = realloc(mem->memory, mem->size + real_size + 1);
+  if(!mem->memory) {
+    /* out of memory! */
+    fprintf(stderr, "not enough memory (realloc returned NULL)\n");
+    return 0;
+  }
+
+  memcpy(&(mem->memory[mem->size]), contents, real_size);
+  mem->size += real_size;
+  mem->memory[mem->size] = 0;
+
+  return real_size;
 }
 
 static void set_request(Server_t *server, char *action, char *pf_move) {
@@ -44,7 +43,7 @@ static void set_request(Server_t *server, char *action, char *pf_move) {
                     strlen(server->name);
     server->request = malloc(sizeof(char) * length);
     if (!server->request)
-      print_error("Error: Request failed\n");
+      exit_on_fail("Error: %s Request failed\n", __func__);
 
     sprintf(server->request, "%s%s%s%s", server->url, action, GAME_NAME,
             server->name);
@@ -54,29 +53,30 @@ static void set_request(Server_t *server, char *action, char *pf_move) {
                     strlen(server->name) + strlen(GAME_MOVE) + strlen(pf_move);
     server->request = malloc(sizeof(char) * length);
     if (!server->request)
-      print_error("Error: Request failed\n");
+      exit_on_fail("Error: %s Request failed\n", __func__);
 
     sprintf(server->request, "%s%s%s%s%s%s", server->url, action, GAME_NAME,
             server->name, GAME_MOVE, pf_move);
   }
-  DEBUGPRINT("Request: \"%s\"\n", server->request);
+  DEBUGPRINT("DEBUG: Request: \"%s\"\n", server->request);
 }
 
-int send_request(Server_t *server) {
+static int send_request(Server_t *server) {
+  DEBUGPRINT("DEBUG: %s \"%s\"\n", __func__, server->request);
   curl_easy_setopt(curl, CURLOPT_URL, server->request);
 
   curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
   curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&(server->mem_chunk));
 
-
   res = curl_easy_perform(curl);
 
   if (res != CURLE_OK) {
-    fprintf(stderr, "Request Failed: %s\n", curl_easy_strerror(res));
+    fprintf(stderr, "ERROR: %s: %s\n", __func__, curl_easy_strerror(res));
     return -1;
   }
 
-  curl_easy_cleanup(curl);
+  // anti-spam
+  sleep(1);
   return 0;
 }
 
@@ -84,18 +84,18 @@ static void init(Server_t *server, char *name) {
   // Set the Server URL
   server->url = malloc(sizeof(char) * strlen(URL));
   if (!server->url)
-    print_error("ERROR: server initialization failed\n");
+    exit_on_fail("ERROR: %s server initialization failed\n", __func__);
 
   memcpy(server->url, URL, strlen(URL));
-  DEBUGPRINT("Server url: \"%s\"\n", server->url);
+  DEBUGPRINT("DEBUG: Server url: \"%s\"\n", server->url);
 
   // Set the Game name
   server->name = malloc(sizeof(char) * strlen(name));
   if (!server->name)
-    print_error("ERROR: server initialization failed\n");
+    exit_on_fail("ERROR: %s server initialization failed\n", __func__);
 
   sprintf(server->name, "%s", name);
-  DEBUGPRINT("Game name: \"%s\"\n", server->name);
+  DEBUGPRINT("DEBUG: Game name: \"%s\"\n", server->name);
 
   server->chunk = NULL;
 
@@ -110,8 +110,10 @@ static void init(Server_t *server, char *name) {
 }
 
 int create_new_game(Server_t *server, char *name) {
-  if (!name)
-    print_error("ERROR: Something went wrong with your game's name\n");
+  if (!name) {
+    fprintf(stderr, "ERROR: %s Something went wrong with your game's name\n", __func__);
+    return -1;
+  }
 
   init(server, name);
   set_request(server, ACTION_NEW, name);
@@ -119,4 +121,8 @@ int create_new_game(Server_t *server, char *name) {
   return 0;
 }
 
-
+int send_move(Server_t *server) {
+  set_request(server, ACTION_TURN, "DOWN");
+  send_request(server);
+  return 0;
+}

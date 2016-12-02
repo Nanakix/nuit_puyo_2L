@@ -18,11 +18,10 @@ static noreturn void usage() {
 }
 
 int main(int argc, char **argv) {
-  if (argc < 3) {
+  if (argc < 3)
     usage();
-  }
 
-  /* Check arguments */
+  // Check arguments
   bool solo = !strcmp(argv[1], "solo");
   bool vs   = !strcmp(argv[1], "vs");
 
@@ -30,17 +29,22 @@ int main(int argc, char **argv) {
     usage();
   }
   if (solo) {
-    /* Curl -H new game*/
+    // Curl -H new game
   }
   if (vs) {
-    /* Curl -H newvs game */
+    // Curl -H new vs game
   }
 
   Server_t server;
-  create_new_game(&server, "testarze");
+  if (create_new_game(&server, "FAIL3") < 0)
+    goto end;
+
+  send_move(&server);
   printf("%s\n", server.mem_chunk.memory);
 
-  /* Free mem */
+  end:
+  // Free mem
+  curl_easy_cleanup(curl);
   free(server.mem_chunk.memory);
   free(server.name);
   free(server.url);
