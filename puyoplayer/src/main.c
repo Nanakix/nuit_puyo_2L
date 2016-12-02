@@ -3,9 +3,9 @@
 //
 
 #include "server.h"
+#include "game.h"
 
 #include <stdbool.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include <stdnoreturn.h>
 #include <string.h>
@@ -36,11 +36,13 @@ int main(int argc, char **argv) {
   }
 
   Server_t server;
-  if (create_new_game(&server, "FAIL3") < 0)
+  if (create_new_game(&server, "InitState3") < 0)
     goto end;
 
-  send_move(&server);
-  printf("%s\n", server.mem_chunk.memory);
+  State_t state;
+  init_state(&state);
+
+  parse_from_server(&server, &state);
 
   end:
   // Free mem
