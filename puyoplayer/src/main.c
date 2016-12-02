@@ -37,7 +37,12 @@ int main(int argc, char **argv) {
   }
 
   Server_t server;
-  create_new_game(&server, "test");
+  create_new_game(&server, "testarze");
+  printf("%s\n", server.mem_chunk.memory);
 
+  /* Free mem */
+  free(server.mem_chunk.memory);
+  free(server.name);
+  free(server.url);
   return 0;
 }

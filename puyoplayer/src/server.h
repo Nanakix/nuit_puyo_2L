@@ -27,11 +27,17 @@ do { if (DEBUG_VAL) fprintf(stderr, fmt, __VA_ARGS__); } while(0)
 CURL *curl;
 CURLcode res;
 
+struct MemoryStruct {
+  char *memory;
+  size_t size;
+};
+
 typedef struct {
   char *url;
   char *name;
   char *request;
   struct curl_slist *chunk;
+  struct MemoryStruct mem_chunk;
 } Server_t;
 
 int create_new_game(Server_t *server, char *name);

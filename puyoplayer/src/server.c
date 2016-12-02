@@ -9,6 +9,27 @@
 #include <string.h>
 #include <zconf.h>
 
+
+static size_t
+WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp)
+{
+  size_t realsize = size * nmemb;
+  struct MemoryStruct *mem = (struct MemoryStruct *)userp;
+
+  mem->memory = realloc(mem->memory, mem->size + realsize + 1);
+  if(mem->memory == NULL) {
+    /* out of memory! */
+    printf("not enough memory (realloc returned NULL)\n");
+    return 0;
+  }
+
+  memcpy(&(mem->memory[mem->size]), contents, realsize);
+  mem->size += realsize;
+  mem->memory[mem->size] = 0;
+
+  return realsize;
+}
+
 static noreturn void print_error(const char *fmt, ...) {
   va_list args;
   va_start(args, fmt);
@@ -43,6 +64,11 @@ static void set_request(Server_t *server, char *action, char *pf_move) {
 
 int send_request(Server_t *server) {
   curl_easy_setopt(curl, CURLOPT_URL, server->request);
+
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteMemoryCallback);
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&(server->mem_chunk));
+
+
   res = curl_easy_perform(curl);
 
   if (res != CURLE_OK) {
@@ -72,6 +98,10 @@ static void init(Server_t *server, char *name) {
   DEBUGPRINT("Game name: \"%s\"\n", server->name);
 
   server->chunk = NULL;
+
+  server->mem_chunk.memory = malloc(1);  /* will be grown as needed by the realloc above */
+  server->mem_chunk.size = 0;    /* no data at this point */
+
   curl = curl_easy_init();
   if (curl) {
     server->chunk = curl_slist_append(server->chunk, "Accept: text/plain");
