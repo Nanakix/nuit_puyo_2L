@@ -23,12 +23,16 @@ string.h
 /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.c
 server.h
 /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.h
-stdio.h
--
 stdlib.h
+-
+stdnoreturn.h
 -
 string.h
 -
+zconf.h
+-
 
 /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.h
+curl/curl.h
+-
 

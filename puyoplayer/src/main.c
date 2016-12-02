@@ -37,7 +37,6 @@ int main(int argc, char **argv) {
   }
 
   Server_t server;
-  init_server(&server);
   create_new_game(&server, "test");
 
   return 0;

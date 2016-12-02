@@ -5,6 +5,8 @@
 #ifndef PUYOPLAYER_SERVER_H
 #define PUYOPLAYER_SERVER_H
 
+#include <curl/curl.h>
+
 #ifdef DEBUG
 #define DEBUG_VAL 1
 #else
@@ -16,12 +18,22 @@ do { if (DEBUG_VAL) fprintf(stderr, fmt, __VA_ARGS__); } while(0)
 
 #define URL "https://puyopuyo.vermeille.fr/"
 
+#define GAME_NAME "name="
+#define GAME_MOVE "&move="
+
+#define ACTION_NEW "new?"
+#define ACTION_TURN "turn?"
+
+CURL *curl;
+CURLcode res;
+
 typedef struct {
   char *url;
   char *name;
+  char *request;
+  struct curl_slist *chunk;
 } Server_t;
 
-void init_server(Server_t *server);
 int create_new_game(Server_t *server, char *name);
 
 #endif //PUYOPLAYER_SERVER_H

@@ -4,25 +4,89 @@
 
 #include "server.h"
 
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdnoreturn.h>
 #include <string.h>
+#include <zconf.h>
 
-void init_server(Server_t *server) {
-  server->url = malloc(sizeof(char) * strlen(URL));
-  memcpy(server->url, URL, strlen(URL));
-  DEBUGPRINT("Server url: %s\n", server->url);
+static noreturn void print_error(const char *fmt, ...) {
+  va_list args;
+  va_start(args, fmt);
+  vfprintf(stderr, fmt, args);
+  va_end(args);
+  exit(EXIT_FAILURE);
 }
 
-int create_new_game(Server_t *server, char *name) {
-  if (!name) {
-    fprintf(stderr, "ERROR: Something went wrong with your game's name\n");
+static void set_request(Server_t *server, char *action, char *pf_move) {
+  if (!strcmp(ACTION_NEW, action)) {
+    size_t length = strlen(server->url) + strlen(action) + strlen(GAME_NAME) +
+                    strlen(server->name);
+    server->request = malloc(sizeof(char) * length);
+    if (!server->request)
+      print_error("Error: Request failed\n");
+
+    sprintf(server->request, "%s%s%s%s", server->url, action, GAME_NAME,
+            server->name);
+
+  } else if (!strcmp(ACTION_TURN, action)) {
+    size_t length = strlen(server->url) + strlen(action) + strlen(GAME_NAME) +
+                    strlen(server->name) + strlen(GAME_MOVE) + strlen(pf_move);
+    server->request = malloc(sizeof(char) * length);
+    if (!server->request)
+      print_error("Error: Request failed\n");
+
+    sprintf(server->request, "%s%s%s%s%s%s", server->url, action, GAME_NAME,
+            server->name, GAME_MOVE, pf_move);
+  }
+  DEBUGPRINT("Request: \"%s\"\n", server->request);
+}
+
+int send_request(Server_t *server) {
+  curl_easy_setopt(curl, CURLOPT_URL, server->request);
+  res = curl_easy_perform(curl);
+
+  if (res != CURLE_OK) {
+    fprintf(stderr, "Request Failed: %s\n", curl_easy_strerror(res));
     return -1;
   }
 
-  server->name = malloc(sizeof(char) * strlen(name));
-  memcpy(server->name, name, strlen(name));
-  DEBUGPRINT("Server name: %s\n", server->name);
-
+  curl_easy_cleanup(curl);
   return 0;
 }
+
+static void init(Server_t *server, char *name) {
+  // Set the Server URL
+  server->url = malloc(sizeof(char) * strlen(URL));
+  if (!server->url)
+    print_error("ERROR: server initialization failed\n");
+
+  memcpy(server->url, URL, strlen(URL));
+  DEBUGPRINT("Server url: \"%s\"\n", server->url);
+
+  // Set the Game name
+  server->name = malloc(sizeof(char) * strlen(name));
+  if (!server->name)
+    print_error("ERROR: server initialization failed\n");
+
+  sprintf(server->name, "%s", name);
+  DEBUGPRINT("Game name: \"%s\"\n", server->name);
+
+  server->chunk = NULL;
+  curl = curl_easy_init();
+  if (curl) {
+    server->chunk = curl_slist_append(server->chunk, "Accept: text/plain");
+    curl_easy_setopt(curl, CURLOPT_HTTPHEADER, server->chunk);
+  }
+}
+
+int create_new_game(Server_t *server, char *name) {
+  if (!name)
+    print_error("ERROR: Something went wrong with your game's name\n");
+
+  init(server, name);
+  set_request(server, ACTION_NEW, name);
+  send_request(server);
+  return 0;
+}
+
+
