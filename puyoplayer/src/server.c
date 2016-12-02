@@ -38,9 +38,10 @@ WriteMemoryCallback(void *contents, size_t size, size_t nmemb, void *userp) {
 }
 
 static void set_request(Server_t *server, char *action, char *pf_move) {
+  DEBUGPRINT("DEBUG: %s: %s %s %s %s\n", __func__, server->url, server->name, action, pf_move);
   if (!strcmp(ACTION_NEW, action)) {
-    size_t length = strlen(server->url) + strlen(action) + strlen(GAME_NAME) +
-                    strlen(server->name);
+    ssize_t length = strlen(server->url) + strlen(action) + strlen(GAME_NAME) +
+                     strlen(server->name);
     server->request = malloc(sizeof(char) * length);
     if (!server->request)
       exit_on_fail("Error: %s Request failed\n", __func__);
@@ -49,11 +50,15 @@ static void set_request(Server_t *server, char *action, char *pf_move) {
             server->name);
 
   } else if (!strcmp(ACTION_TURN, action)) {
-    size_t length = strlen(server->url) + strlen(action) + strlen(GAME_NAME) +
-                    strlen(server->name) + strlen(GAME_MOVE) + strlen(pf_move);
+    DEBUGPRINT("DEBUG: là\n");
+    ssize_t length = strlen(server->url) + strlen(action) + strlen(GAME_NAME) +
+                     strlen(server->name) + strlen(GAME_MOVE) + strlen(pf_move);
+    DEBUGPRINT("compute: %zu\n", length);
     server->request = malloc(sizeof(char) * length);
+    DEBUGPRINT("toujours\n");
     if (!server->request)
       exit_on_fail("Error: %s Request failed\n", __func__);
+    DEBUGPRINT("DEBUG: ici\n");
 
     sprintf(server->request, "%s%s%s%s%s%s", server->url, action, GAME_NAME,
             server->name, GAME_MOVE, pf_move);
@@ -74,7 +79,6 @@ static int send_request(Server_t *server) {
     fprintf(stderr, "ERROR: %s: %s\n", __func__, curl_easy_strerror(res));
     return -1;
   }
-
   // anti-spam
   sleep(1);
   return 0;
@@ -121,8 +125,10 @@ int create_new_game(Server_t *server, char *name) {
   return 0;
 }
 
-int send_move(Server_t *server) {
-  set_request(server, ACTION_TURN, "DOWN");
+int send_move(Server_t *server, char *action) {
+  DEBUGPRINT("DEBUG: %s: %s %s\n", __func__, server->url, server->name);
+  DEBUGPRINT("DEBUG: Want to send: %s\n", action);
+  set_request(server, ACTION_TURN, action);
   send_request(server);
   return 0;
 }

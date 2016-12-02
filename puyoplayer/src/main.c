@@ -36,13 +36,19 @@ int main(int argc, char **argv) {
   }
 
   Server_t server;
-  if (create_new_game(&server, "InitState3") < 0)
+  if (create_new_game(&server, "ab") == -1)
     goto end;
 
   State_t state;
   init_state(&state);
 
-  parse_from_server(&server, &state);
+  char *str = server.mem_chunk.memory;
+
+  parse_from_server(server.mem_chunk.memory, &state);
+  server.mem_chunk.memory = str;
+
+  send_move(&server, "DOWN");
+  parse_from_server(str, &state);
 
   end:
   // Free mem
@@ -50,5 +56,6 @@ int main(int argc, char **argv) {
   free(server.mem_chunk.memory);
   free(server.name);
   free(server.url);
+  free(server.request);
   return 0;
 }

@@ -29,7 +29,7 @@ void print_state(State_t *state) {
   fprintf(stdout, "%d %d\n\n", state->puyos[MAIN_PUYO], state->puyos[SECOND_PUYO]);
   FORD(i, NB_ROW) {
     fprintf(stdout, "%2d ", i);
-    FORD(j, NB_COL) {
+    FOR(j, NB_COL) {
       switch (state->board[i][j]) {
         case R:
           fprintf(stdout, "R ");
@@ -93,11 +93,10 @@ static void add_puyos(State_t *state) {
       state->puyos[SECOND_PUYO];
 }
 
-void parse_from_server(Server_t *server, State_t *state) {
-  const char delim[2] = "\n";
+void parse_from_server(char *str, State_t *state) {
   char *token;
-
-  token = strtok(server->mem_chunk.memory, delim);
+  const char delim[2] = "\n";
+  token = strtok(str, delim);
   if (!token)
     return;
 

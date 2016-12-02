@@ -36,6 +36,6 @@ typedef struct {
 } State_t;
 
 void init_state(State_t *state);
-void parse_from_server(Server_t *server, State_t *state);
+void parse_from_server(char *str, State_t *state);
 
 #endif //PUYOPLAYER_GAME_H

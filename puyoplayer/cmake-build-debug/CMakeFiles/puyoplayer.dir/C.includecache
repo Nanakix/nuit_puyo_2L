@@ -6,12 +6,24 @@
 
 #IncludeRegexTransform: 
 
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/game.c
+game.h
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/game.h
+stdlib.h
+-
+string.h
+-
+
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/game.h
+server.h
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.h
+
 /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/main.c
 server.h
 /home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/server.h
+game.h
+/home/nillyr/Documents/nuitDeLInfo/nuit_puyo_2L/puyoplayer/src/game.h
 stdbool.h
--
-stdio.h
 -
 stdlib.h
 -

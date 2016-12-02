@@ -1,1 +1,1 @@
-/usr/bin/cc   -Wall -Wextra -Werror -std=c11 -lcurl -g -DDEBUG   CMakeFiles/puyoplayer.dir/src/main.c.o CMakeFiles/puyoplayer.dir/src/server.c.o CMakeFiles/puyoplayer.dir/src/game.c.o  -o puyoplayer 
+/usr/bin/cc   -Wall -Wextra -Werror -std=c11 -lcurl -g -g -DDEBUG   CMakeFiles/puyoplayer.dir/src/main.c.o CMakeFiles/puyoplayer.dir/src/server.c.o CMakeFiles/puyoplayer.dir/src/game.c.o  -o puyoplayer 

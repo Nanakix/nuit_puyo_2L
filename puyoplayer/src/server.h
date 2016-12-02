@@ -14,7 +14,7 @@
 #endif // DEBUG
 
 #define DEBUGPRINT(fmt, ...) \
-do { if (DEBUG_VAL) fprintf(stderr, fmt, __VA_ARGS__); } while(0)
+do { if (DEBUG_VAL) fprintf(stderr, fmt, ##__VA_ARGS__); } while(0)
 
 #define URL "https://puyopuyo.vermeille.fr/"
 
@@ -41,7 +41,6 @@ typedef struct {
 } Server_t;
 
 int create_new_game(Server_t *server, char *name);
-
-int send_move(Server_t *server);
+int send_move(Server_t *server, char *action);
 
 #endif //PUYOPLAYER_SERVER_H
